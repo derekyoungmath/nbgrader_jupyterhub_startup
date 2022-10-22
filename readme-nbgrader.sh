@@ -75,24 +75,24 @@ cp formgrader_workspace.json /home/$teacher/formgrader_workspace.json
 chown $teacher:$teacher /home/$teacher/formgrader_workspace.json
 
 cd /home/$teacher
-runas="sudo -u $teacher"
+runas=" -u $teacher"
 
-jupyter lab workspaces import /home/$teacher/formgrader_workspace.json
-nbgrader quickstart $course
+$runas jupyter lab workspaces import /home/$teacher/formgrader_workspace.json
+$runas nbgrader quickstart $course
 
-jupyter nbextension enable --user create_assignment/main
-jupyter labextension disable --level=user nbgrader/create-assignment
-jupyter labextension enable --level=user nbgrader/create-assignment
+$runas jupyter nbextension enable --user create_assignment/main
+$runas jupyter labextension disable --level=user nbgrader/create-assignment
+$runas jupyter labextension enable --level=user nbgrader/create-assignment
 
-jupyter nbextension enable --user formgrader/main --section=tree
-jupyter labextension disable --level=user nbgrader/formgrader
-jupyter labextension enable --level=user nbgrader/formgrader
-jupyter serverextension enable --user nbgrader.server_extensions.formgrader
+$runas jupyter nbextension enable --user formgrader/main --section=tree
+$runas jupyter labextension disable --level=user nbgrader/formgrader
+$runas jupyter labextension enable --level=user nbgrader/formgrader
+$runas jupyter serverextension enable --user nbgrader.server_extensions.formgrader
 
-jupyter nbextension enable --user assignment_list/main --section=tree
-jupyter labextension disable --level=user nbgrader/assignment-list
-jupyter labextension enable --level=user nbgrader/assignment-list
-jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
+$runas jupyter nbextension enable --user assignment_list/main --section=tree
+$runas jupyter labextension disable --level=user nbgrader/assignment-list
+$runas jupyter labextension enable --level=user nbgrader/assignment-list
+$runas jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
 cd -
 
 # The following needs to be run to add student
