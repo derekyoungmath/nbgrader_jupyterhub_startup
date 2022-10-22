@@ -75,7 +75,7 @@ cp formgrader_workspace.json /home/$teacher/formgrader_workspace.json
 chown $teacher:$teacher /home/$teacher/formgrader_workspace.json
 
 cd /home/$teacher
-runas=" -u $teacher"
+runas="sudo -u $teacher"
 
 $runas jupyter lab workspaces import /home/$teacher/formgrader_workspace.json
 $runas nbgrader quickstart $course
