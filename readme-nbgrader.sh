@@ -77,22 +77,22 @@ chown $teacher:$teacher /home/$teacher/formgrader_workspace.json
 cd /home/$teacher
 runas="sudo -u $teacher"
 
-"sudo -u $teacher jupyter lab workspaces import /home/$teacher/formgrader_workspace.json"
-"sudo -u $teacher nbgrader quickstart $course"
+eval "sudo -u $teacher jupyter lab workspaces import /home/$teacher/formgrader_workspace.json"
+eval "sudo -u $teacher nbgrader quickstart $course"
 
-"sudo -u $teacher jupyter nbextension enable --user create_assignment/main"
-"sudo -u $teacher jupyter labextension disable --level=user nbgrader/create-assignment"
-"sudo -u $teacher jupyter labextension enable --level=user nbgrader/create-assignment"
+eval "sudo -u $teacher jupyter nbextension enable --user create_assignment/main"
+eval "sudo -u $teacher jupyter labextension disable --level=user nbgrader/create-assignment"
+eval "sudo -u $teacher jupyter labextension enable --level=user nbgrader/create-assignment"
 
-"sudo -u $teacher jupyter nbextension enable --user formgrader/main --section=tree"
-"sudo -u $teacher jupyter labextension disable --level=user nbgrader/formgrader"
-"sudo -u $teacher jupyter labextension enable --level=user nbgrader/formgrader"
-"sudo -u $teacher jupyter serverextension enable --user nbgrader.server_extensions.formgrader"
+eval "sudo -u $teacher jupyter nbextension enable --user formgrader/main --section=tree"
+eval "sudo -u $teacher jupyter labextension disable --level=user nbgrader/formgrader"
+eval "sudo -u $teacher jupyter labextension enable --level=user nbgrader/formgrader"
+eval "sudo -u $teacher jupyter serverextension enable --user nbgrader.server_extensions.formgrader"
 
-"sudo -u $teacher jupyter nbextension enable --user assignment_list/main --section=tree"
-"sudo -u $teacher jupyter labextension disable --level=user nbgrader/assignment-list"
-"sudo -u $teacher jupyter labextension enable --level=user nbgrader/assignment-list"
-"sudo -u $teacher jupyter serverextension enable --user nbgrader.server_extensions.assignment_list"
+eval "sudo -u $teacher jupyter nbextension enable --user assignment_list/main --section=tree"
+eval "sudo -u $teacher jupyter labextension disable --level=user nbgrader/assignment-list"
+eval "sudo -u $teacher jupyter labextension enable --level=user nbgrader/assignment-list"
+eval "sudo -u $teacher jupyter serverextension enable --user nbgrader.server_extensions.assignment_list"
 cd -
 
 # The following needs to be run to add student
