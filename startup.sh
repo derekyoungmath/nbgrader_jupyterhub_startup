@@ -27,13 +27,15 @@ mkdir -p /srv/nbgrader
 chmod ugo+r /srv/nbgrader
 
 # pip install nbgrader
+nbgrader='/opt/tljh/user/bin/nbgrader'
+jupyter='/opt/tljh/user/bin/jupyter'
 
-jupyter nbextension install --symlink --sys-prefix --py nbgrader --overwrite
-jupyter nbextension disable --sys-prefix --py nbgrader
-jupyter serverextension disable --sys-prefix --py nbgrader
+$jupyter nbextension install --symlink --sys-prefix --py nbgrader --overwrite
+$jupyter nbextension disable --sys-prefix --py nbgrader
+$jupyter serverextension disable --sys-prefix --py nbgrader
 
-jupyter nbextension enable --sys-prefix validate_assignment/main --section=notebook
-jupyter serverextension enable --sys-prefix nbgrader.server_extensions.validate_assignment
+$jupyter nbextension enable --sys-prefix validate_assignment/main --section=notebook
+$jupyter serverextension enable --sys-prefix nbgrader.server_extensions.validate_assignment
 
 echo "Creating dir '/usr/local/share/nbgrader/exchange' with permissions 'ugo+rwx'"
 mkdir -p /usr/local/share/nbgrader/exchange
@@ -49,8 +51,6 @@ cd /home/$teacher
 runas="sudo -u $teacher"
 
 # restart server and the following lines won't be needed
-nbgrader='/opt/tljh/user/bin/nbgrader'
-jupyter='/opt/tljh/user/bin/jupyter'
 
 $runas $nbgrader quickstart $course
 
