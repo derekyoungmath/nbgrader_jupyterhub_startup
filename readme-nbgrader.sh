@@ -79,7 +79,7 @@ runas="sudo -u $teacher"
 nbgrader='/opt/tljh/user/bin/nbgrader'
 jupyter='/opt/tljh/user/bin/jupyter'
 
-$runas $jupyter lab workspaces import /home/$teacher/.jupyter/formgrader_workspace.json
+# $runas $jupyter lab workspaces import /home/$teacher/.jupyter/formgrader_workspace.json
 $runas $nbgrader quickstart $course
 
 $runas $jupyter nbextension enable --user create_assignment/main
@@ -96,8 +96,6 @@ $runas $jupyter nbextension enable --user assignment_list/main --section=tree
 # $runas $jupyter labextension enable --level=user nbgrader/assignment-list
 $runas $jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
 cd -
-
-
 
 # The following needs to be run to add student
 #
