@@ -26,7 +26,7 @@ echo "Creating directory '/srv/nbgrader' with permissions 'ugo+r'"
 mkdir -p /srv/nbgrader
 chmod ugo+r /srv/nbgrader
 
-# pip install nbgrader
+pip install nbgrader
 
 jupyter nbextension install --symlink --sys-prefix --py nbgrader --overwrite
 jupyter nbextension disable --sys-prefix --py nbgrader
