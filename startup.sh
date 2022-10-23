@@ -30,6 +30,9 @@ chmod ugo+r /srv/nbgrader
 nbgrader='/opt/tljh/user/bin/nbgrader'
 jupyter='/opt/tljh/user/bin/jupyter'
 
+# config files /opt/tljh/user/etc/jupyter'
+rm -rf /opt/tljh/user/etc/jupyter
+
 $jupyter nbextension install --symlink --sys-prefix --py nbgrader --overwrite
 $jupyter nbextension disable --sys-prefix --py nbgrader
 $jupyter serverextension disable --sys-prefix --py nbgrader
