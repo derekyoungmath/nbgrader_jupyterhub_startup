@@ -76,25 +76,25 @@ cd /home/$teacher
 runas="sudo -u $teacher"
 
 # restart server and the following lines won't be needed
-# echo "jupyter='/opt/tljh/user/bin/jupyter'" >> .bashrc
-# echo "nbgrader='/opt/tljh/user/bin/nbgrader'" >> .bashrc
+nbgrader='/opt/tljh/user/bin/nbgrader'
+jupyter='/opt/tljh/user/bin/jupyter'
 
-$runas jupyter lab workspaces import /home/$teacher/.jupyter/formgrader_workspace.json
-$runas nbgrader quickstart $course
+$runas $jupyter lab workspaces import /home/$teacher/.jupyter/formgrader_workspace.json
+$runas $nbgrader quickstart $course
 
-$runas jupyter nbextension enable --user create_assignment/main
-# $runas jupyter labextension disable --level=user nbgrader/create-assignment
-# $runas jupyter labextension enable --level=user nbgrader/create-assignment
+$runas $jupyter nbextension enable --user create_assignment/main
+# $runas $jupyter labextension disable --level=user nbgrader/create-assignment
+# $runas $jupyter labextension enable --level=user nbgrader/create-assignment
 
-$runas jupyter nbextension enable --user formgrader/main --section=tree
-# $runas jupyter labextension disable --level=user nbgrader/formgrader
-# $runas jupyter labextension enable --level=user nbgrader/formgrader
-$runas jupyter serverextension enable --user nbgrader.server_extensions.formgrader
+$runas $jupyter nbextension enable --user formgrader/main --section=tree
+# $runas $jupyter labextension disable --level=user nbgrader/formgrader
+# $runas $jupyter labextension enable --level=user nbgrader/formgrader
+$runas $jupyter serverextension enable --user nbgrader.server_extensions.formgrader
 
-$runas jupyter nbextension enable --user assignment_list/main --section=tree
-# $runas jupyter labextension disable --level=user nbgrader/assignment-list
-# $runas jupyter labextension enable --level=user nbgrader/assignment-list
-$runas jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
+$runas $jupyter nbextension enable --user assignment_list/main --section=tree
+# $runas $jupyter labextension disable --level=user nbgrader/assignment-list
+# $runas $jupyter labextension enable --level=user nbgrader/assignment-list
+$runas $jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
 cd -
 
 
