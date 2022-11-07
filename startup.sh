@@ -26,7 +26,7 @@ echo "Creating directory '/srv/nbgrader' with permissions 'ugo+r'"
 mkdir -p /srv/nbgrader
 chmod ugo+r /srv/nbgrader
 
-# pip install nbgrader
+pip install nbgrader
 nbgrader='/opt/tljh/user/bin/nbgrader'
 jupyter='/opt/tljh/user/bin/jupyter'
 
