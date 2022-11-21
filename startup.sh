@@ -1,20 +1,5 @@
 #!/usr/bin/env bash
 
-# script must be run with sudo
-#
-#
-# this directory and files need to be removed
-#
-#/etc/jupyter
-#/srv/nbgrader/
-#/usr/local/share/nbgrader/
-#
-# the following files need to be in the same directory as script 
-#
-#jupyterhub_config.py
-#instructor_nbgrader_config.py
-#
-
 teacher=$1
 course=$2
 
@@ -30,7 +15,6 @@ pip install nbgrader
 nbgrader='/opt/tljh/user/bin/nbgrader'
 jupyter='/opt/tljh/user/bin/jupyter'
 
-# config files /opt/tljh/user/etc/jupyter'
 rm -rf /opt/tljh/user/etc/jupyter
 
 $jupyter nbextension install --symlink --sys-prefix --py nbgrader --overwrite
@@ -44,16 +28,23 @@ echo "Creating dir '/usr/local/share/nbgrader/exchange' with permissions 'ugo+rw
 mkdir -p /usr/local/share/nbgrader/exchange
 chmod ugo+rwx /usr/local/share/nbgrader/exchange
 
+rm -f /etc/jupyter/nbgrader_config.py
+echo "Setting up JupyterHub to run in '/srv/nbgrader/jupyterhub'"
+mkdir -p /srv/nbgrader/jupyterhub
+rm -f /srv/nbgrader/jupyterhub/jupyterhub.sqlite
+rm -f /srv/nbgrader/jupyterhub/jupyterhub.cookie_secret
+echo "c=get_config()" > /srv/nbgrader/jupyterhub/jupyterhub_config.py
+echo "c.Authenticator.allowed_users = ['$teacher',]" >> /srv/nbgrader/jupyterhub/jupyterhub_config.py
 
 echo "Setting up nbgrader for user $teacher"
 mkdir /home/$teacher/.jupyter
-cp instructor_nbgrader_config.py /home/$teacher/.jupyter/nbgrader_config.py
+echo "c = get_config()'" > /home/$teacher/.jupyter/nbgrader_config.py
+echo "c.CourseDirectory.root = '/home/jupyter-$teacher/$course' >> /home/$teacher/.jupyter/nbgrader_config.py"
+echo "c.CourseDirectory.course_id = '$course' >> /home/$teacher/.jupyter/nbgrader_config.py"
 chown $teacher:$teacher /home/$teacher/.jupyter/nbgrader_config.py
 
 cd /home/$teacher
 runas="sudo -u $teacher"
-
-# restart server and the following lines won't be needed
 
 $runas $nbgrader quickstart $course
 
@@ -64,19 +55,3 @@ $runas $jupyter serverextension enable --user nbgrader.server_extensions.formgra
 
 $runas $jupyter nbextension enable --user assignment_list/main --section=tree
 $runas $jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
-cd -
-
-# The following needs to be run to add student
-#
-# nbgrader db student import students.csv
-#
-# where the columns of the csv should be 
-# id,first_name,last_name,email
-# id = student's user name
-#
-# The following needs to be run to add student extensions
-#
-# $student $jupyter nbextension enable --user assignment_list/main --section=tree
-# $student $jupyter labextension disable --level=user nbgrader/assignment-list
-# $student $jupyter labextension enable --level=user nbgrader/assignment-list
-# $student $jupyter serverextension enable --user nbgrader.server_extensions.assignment_list
